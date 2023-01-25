@@ -1,0 +1,44 @@
+:root {
+    --main-color: #008237;
+    --main-color-hover:#02471f;
+    --main-second-color: #d0011a;
+    --background: #f8fafc;
+    --secondary-background: #fff;
+  }
+
+
+.navbar-main{
+    background-color: var(--main-color);
+
+}
+
+.navbar-main *{
+    color: #fff;
+}
+.navbar-main a:hover,
+.navbar-main button:hover{
+    color: rgb(238, 238, 238);
+
+}
+
+.btn-main{
+    background-color:var(--main-color);
+    color: #fff;
+}
+.btn-main:hover
+{
+    background-color: var(--main-color-hover);
+    color: #fff;
+}
+
+.text-main{
+    color: var(--main-color);
+}
+
+.btn-link-main{
+    color: var(--main-color);
+}
+
+.btn-link-main:hover{
+    color: var(--main-color-hover);
+}
