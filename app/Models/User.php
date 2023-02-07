@@ -43,7 +43,15 @@ class User extends Authenticatable
     ];
 
 
-    public function role(){
-        return $this->belongsTo(Role::class, 'role_id');
+    public function profile(){
+        if($this->profile_type =='App\Models\Admin')
+        {
+            return $this->hasOne(Admin::class);
+        }
+        else if($this->profile_type =='App\Models\Offeror')
+        {
+            return $this->hasOne(Offeror::class, 'id', 'user_id');
+        }
+
     }
 }

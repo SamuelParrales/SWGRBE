@@ -1,3 +1,7 @@
+@php
+    use App\Models\Admin;
+    use App\Models\Offeror;
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -91,7 +95,7 @@
                                     <a class="dropdown-item" href="{{ route('user.profile') }}">
                                         <i class="fa-solid fa-user" style="width: 16px"></i> {{ __('Profile') }}
                                     </a>
-                                    @if (Auth::user()->role->name == 'Offeror')
+                                    @if (Auth::user()->profile instanceof Offeror)
                                         <a class="dropdown-item" href="{{ route('user.offeror.myProducts') }}">
                                             <i class="fa-solid fa-boxes-stacked"></i> Mis productos
                                         </a>
@@ -114,7 +118,7 @@
             </div>
         </nav>
         {{-- Sidebar Admin --}}
-        @if (Auth::user() && Auth::user()->role->name == 'Admin')
+        @if (Auth::user() && Auth::user()->profile instanceof Admin)
             <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="admin-sidebar"
                 aria-labelledby="admin-sidebarLabel">
                 <div class="offcanvas-header">
@@ -124,7 +128,7 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body px-4">
-xa
+
                     <a href="{{route('user.admin.userIndex')}}" class="btn link-admin-sidebar border rounded"><i class="fa-solid fa-users"></i>
                         Usuarios</a>
                     <a href="{{route('user.admin.reportIndex')}}" class="btn link-admin-sidebar border rounded"><i class="fa-solid fa-flag"
@@ -139,7 +143,7 @@ xa
 
 
         {{-- Button show admin sidebar --}}
-        @if (Auth::user() && Auth::user()->role->name == 'Admin')
+        @if (Auth::user() && Auth::user()->profile instanceof Admin)
         <button id="show-sidebar" class="btn btn-dark m-md-4" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#admin-sidebar" aria-controls="admin-sidebar">
             <i class="fa-solid fa-shield-halved"></i>
