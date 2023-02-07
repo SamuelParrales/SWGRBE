@@ -23,9 +23,10 @@
                 <div class="form-floating mb-3">
                     <select class="form-select" aria-label="Floating label select example">
                         <option selected>Seleccionar</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+
+                        @endforeach
                     </select>
                     <label>Categoría</label>
                 </div>

@@ -4,16 +4,17 @@
     <div class="container">
         <div class="row">
             <aside class="col-4 col-sm-3 col-lg-2  pt-4">
-                <h2 class="fs-6 fw-bold">Categories</h2>
-                <a class="fs-6 text-decoration-none" href="">
-                    <span>Licuadoras</span>
-                    <span class="fw-light">(256)</span>
-                </a>
-                <br>
-                <a class="fs-6 text-decoration-none" href="">
-                    <span>Televisor</span>
-                    <span class="fw-light">(256)</span>
-                </a>
+                <h2 class="fs-6 fw-bold">{{__('Categories')}}</h2>
+                @foreach ($categories as $category)
+                    <div class="mb-3">
+                        <a class="fs-6 text-decoration-none" href="">
+                            <span>{{$category->name}}</span>
+                            {{-- <span class="fw-light">(256)</span> --}}
+                        </a>
+                    </div>
+                @endforeach
+
+
             </aside>
             <section class="col-8 col-sm-9 col-lg-10 row g-0 justify-content-center justify-content-md-start">
                 <header class="row mb-3 justify-content-between align-items-end">

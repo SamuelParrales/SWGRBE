@@ -51,54 +51,18 @@
 
             </div>
             <section class="row g-0  ">
+                @foreach ($categories as $category)
                 <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
                     <a class="category text-center">
                         <div class="icon">
-                            <i class="fa-solid fa-blender"></i>
+
+                            <i class="{{$icons[$category->id]}}"></i>
                         </div>
-                        <p>Categoriaaaaaaaa wsdds wdw</p>
+                        <p class="px-1">{{$category->name}}</p>
                     </a>
                 </article>
-                <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
-                    <a class="category text-center">
-                        <div class="icon">
-                            <i class="fa-solid fa-blender"></i>
-                        </div>
-                        <p>Categoriaaaa</p>
-                    </a>
-                </article>
-                <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
-                    <a class="category text-center">
-                        <div class="icon">
-                            <i class="fa-solid fa-blender"></i>
-                        </div>
-                        <p>Categoriaaaa</p>
-                    </a>
-                </article>
-                <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
-                    <a class="category text-center">
-                        <div class="icon">
-                            <i class="fa-solid fa-blender"></i>
-                        </div>
-                        <p>Categoriaaaaaaaa wsdds wdw</p>
-                    </a>
-                </article>
-                <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
-                    <a class="category text-center">
-                        <div class="icon">
-                            <i class="fa-solid fa-blender"></i>
-                        </div>
-                        <p>Categoriaaaa</p>
-                    </a>
-                </article>
-                <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
-                    <a class="category text-center">
-                        <div class="icon">
-                            <i class="fa-solid fa-blender"></i>
-                        </div>
-                        <p>Categoriaaaa</p>
-                    </a>
-                </article>
+                @endforeach
+
             </section>
 
         </div>

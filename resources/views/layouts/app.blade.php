@@ -47,9 +47,9 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark "
                                     aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    @foreach ($categories as  $category)
+                                    <li><a class="dropdown-item" href=""><i class="{{$icons[$category->id]}} p-0" style="width: 12px"></i> {{$category->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>
