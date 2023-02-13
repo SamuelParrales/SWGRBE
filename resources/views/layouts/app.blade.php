@@ -12,8 +12,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+    <title>@yield('title')</title>
+    {{-- Icon --}}
+    <link rel="icon" type="image/png" href="{{asset('icon.png')}}">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -30,8 +32,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-main  shadow-sm">
             <div class="container align-items-start">
-                <a class="navbar-brand me-1  me-md-5" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand p-0 me-1 me-md-5 text-center" href="{{ url('/') }}">
+                    {{-- {{ config('app.name', 'Laravel') }} --}}
+                    <img src="{{asset('icon.png')}}" width="40" alt=""> <h2 class="fs-5 d-none d-md-block">SWGRBE</h2>
                 </a>
                 <form id="form-main-search" class="nav-item col-md-6 col-lg-5 border border-success rounded" action="{{route('product.index')}}">
                     <input name="category_id" class="d-none" type="text" value="@yield('search_category_id')">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Editar '.$product->name)
 @push('styles')
     <link rel="stylesheet" type="text/css"
         href="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.min.css" />

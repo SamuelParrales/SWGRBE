@@ -31,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "/profile";
 
     /**
      * Create a new controller instance.
@@ -51,7 +51,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-
+        route('user.profile');
         return Validator::make($data, [
             'name' => ['required', 'string','min:3', 'max:50'],
             'last_name' =>['required', 'string','min:3', 'max:50',],

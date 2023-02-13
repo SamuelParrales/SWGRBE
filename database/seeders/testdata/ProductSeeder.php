@@ -33,8 +33,8 @@ class ProductSeeder extends Seeder
         $product->save();
 
         $image = new Image();
-        $image->public_id = "products/p058duweumhgjrczgige";
-        $image->url = "https://res.cloudinary.com/ddrfdszk5/image/upload/v1676059945/products/p058duweumhgjrczgige.jpg";
+        $image->public_id = "products/jhmnbw2jegavgivoclcg";
+        $image->url = "https://res.cloudinary.com/ddrfdszk5/image/upload/v1676059945/products/jhmnbw2jegavgivoclcg.jpg";
         $image->product_id = $product->id;
         $image->Save();
 

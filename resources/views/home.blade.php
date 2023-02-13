@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+@section('title','Inicio')
 @section('content')
     <div class="container pb-0">
         <!-- Carousel -->

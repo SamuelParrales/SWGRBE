@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Editar perfil')
 @section('content')
     <div class="container">
         <div class=" row g-0 justify-content-center px-lg-3">

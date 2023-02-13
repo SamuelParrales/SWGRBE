@@ -31,6 +31,9 @@ document.addEventListener('submit',async (e)=>{
                 'Content-Type': 'multipart/form-data'
             }})
         ),
+        end: (msg)=>{
+            if(msg=="success") location.reload();
+        },
     })
 })
 
@@ -54,6 +57,9 @@ document.addEventListener('submit',async (e)=>{
                 'Content-Type': 'multipart/form-data'
             }})
         ),
+        end: (msg)=>{
+            if(msg=="success") location.reload();
+        },
     })
 })
 

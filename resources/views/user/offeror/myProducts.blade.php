@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Mis productos')
 @section('content')
     <div class="container p-2">
         <div class="row g-0 justify-content-center">
@@ -95,13 +95,13 @@
                                                             class="btn btn-main"><i class="fa-solid fa-eye"></i></a>
                                                     </div>
                                                     @if ($product->recycled)
-                                                        <div class="col-auto ms-1">
+                                                        <div class="col-auto ms-lg-1">
                                                             <button disabled type="button" class="btn btn-success"><i
                                                                     class="fa-solid fa-recycle"></i></button>
                                                         </div>
                                                     @else
                                                         <form action="{{ route('productRestv1.recycle', $product->id) }}"
-                                                            class="col-auto ms-1 form-recycle-product" method="post">
+                                                            class="col-auto ms-lg-1 form-recycle-product" method="post">
                                                             @method('put')
                                                             <button type="submit" class="btn btn-main"><i
                                                                     class="fa-solid fa-recycle"></i></button>
@@ -121,14 +121,14 @@
                                                         @endif
                                                     </div>
                                                     @if ($product->recycled)
-                                                        <div class="col-auto ms-1">
+                                                        <div class="col-auto ms-lg-1">
                                                             <button disabled type="button" class="btn btn-danger"
                                                                 style="width: 42.19px"><i
                                                                     class="fa-solid fa-trash-can"></i></button>
                                                         </div>
                                                     @else
                                                         <form action="{{ route('productRestv1.destroy', $product->id) }}"
-                                                            method="POST" class="col-auto ms-1 form-destroy-product">
+                                                            method="POST" class="col-auto ms-lg-1 form-destroy-product">
                                                             @method('delete')
                                                             <button type="submit" class="btn btn-danger"
                                                                 style="width: 42.19px"><i
