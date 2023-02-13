@@ -18,9 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
             $table->string('name',50);
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('cell_phone_num',10);
             $table->boolean('has_whatsapp');
+            $table->boolean('recycled');
             $table->foreign('user_id')->references('user_id')->on('offerors')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

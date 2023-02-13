@@ -9,7 +9,7 @@ const createModal = () => {
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Subir imagen</h5>
+            <h5 class="modal-title"><i class="fa-solid fa-upload"></i> Subir imágenes</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
@@ -32,17 +32,15 @@ export const ModalUploadImgs = (inputFile) => {
 
     const modal = createModal();
     const Events = FileUploadWithPreview.Events;
-    console.log(FileUploadWithPreview);
     const upload = new FileUploadWithPreview.FileUploadWithPreview('myFirstImage',{
         multiple:true,
         maxFileCount: 4,
         text:{
             browse:'Navegar',
-            chooseFile:'Seleccionar imagenes',
+            chooseFile:'Seleccionar imágenes',
             label:'',
-            selectedCount: 'Imagenes seleccionadas'
-        }
-
+            selectedCount: 'Imágenes seleccionadas'
+        },
     });
     const $containerImgs = modal._element.querySelector('.custom-file-container')
 
@@ -70,8 +68,8 @@ export const ModalUploadImgs = (inputFile) => {
         modal.show();
 
     })
-    modal.show();
+    // modal.show();
 
-
+    modal.fileUploadWithPreview = upload;
     return modal;
 }

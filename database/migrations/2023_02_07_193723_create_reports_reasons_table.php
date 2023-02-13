@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('reports_reasons', function (Blueprint $table) {
             $table->id();
-            $table->string('reason',50);
+            $table->string('reason',50)->unique();
         });
     }
 

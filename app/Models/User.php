@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +22,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'last_name',
+        'username',
         'password',
+        'profile_type'
     ];
 
     /**
@@ -50,8 +55,37 @@ class User extends Authenticatable
         }
         else if($this->profile_type =='App\Models\Offeror')
         {
-            return $this->hasOne(Offeror::class, 'id', 'user_id');
+            return $this->hasOne(Offeror::class);
         }
 
     }
+
+
+     // Mutadores
+     public function setNameAttribute($value)
+     {
+         $this->attributes['name'] = $this->ucFirstAndLower($value);
+     }
+
+     public function setLastNameAttribute($value)
+     {
+         $this->attributes['last_name'] = $this->ucFirstAndLower($value);
+     }
+     private function ucFirstAndLower($cad)
+     {
+         $words = explode(" ",$cad);
+         $result = "";
+         foreach ($words as $w) {
+             $w = trim($w);
+             $w = strtolower($w);
+             $w = ucfirst($w);
+
+             if($result=="")
+                 $result = $w;
+             else
+                 $result = $result." ".$w;
+         }
+
+         return $result;
+     }
 }

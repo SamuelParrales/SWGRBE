@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Offeror;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Rules\CheckFormatPassword;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -49,10 +51,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string','min:3', 'max:50'],
+            'last_name' =>['required', 'string','min:3', 'max:50',],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username' => ['required','string','min:3','max:16','unique:users'],
+            'password' => ['required', 'string', new CheckFormatPassword(), 'confirmed'],
         ]);
     }
 
@@ -64,10 +69,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'profile_type' => Offeror::class,
         ]);
+
+        $offeror = new Offeror();
+        $offeror->user_id = $user->id;
+        $offeror->save();
+
+        return $user;
     }
 }

@@ -32,30 +32,29 @@
         </div>
 
         <div class="row g-0">
+            @php
+                $count = $products->count();
+            @endphp
             <div class="col-auto mt-3">
-                <h2>Lo más reciente</h2>
+                <h2>Lo más reciente: </h2>
             </div>
+            <div class="w-100"></div>
+            <section class="row @if($count<3) col-md-7 col-lg-6 col-xl-5 @elseif ($count<4) col-md-9 col-lg-8 col-xl-7  @endif  g-0 justify-content-between ">
+                @foreach ($products as $product)
+                    @include('product.components.card',compact('product'))
+                @endforeach
 
-            <section class="row g-0 justify-content-between ">
-                @include('product.components.card')
-                @include('product.components.card')
-                @include('product.components.card')
-                @include('product.components.card')
-                @include('product.components.card')
             </section>
         </div>
-
         <div class="row g-0">
             <div class="col-auto mb-2">
-                <h2>Categories</h2>
-
+                <h2>{{__('Categories')}}: </h2>
             </div>
             <section class="row g-0  ">
                 @foreach ($categories as $category)
                 <article class="container-category border col-6 col-sm-4 col-md-3 col-lg-2">
-                    <a class="category text-center">
+                    <a class="category text-center text-decoration-none" href="{{route('product.index')}}?category_id={{$category->id}}">
                         <div class="icon">
-
                             <i class="{{$icons[$category->id]}}"></i>
                         </div>
                         <p class="px-1">{{$category->name}}</p>

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/components/helpers/loaderMain.css'])
     <!--Bootstrap  -->
 
     @stack('styles')
@@ -32,12 +33,13 @@
                 <a class="navbar-brand me-1  me-md-5" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <div class="nav-item col-md-6 col-lg-5 border border-success rounded">
-                    <form class="d-flex">
-                        <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                <form id="form-main-search" class="nav-item col-md-6 col-lg-5 border border-success rounded" action="{{route('product.index')}}">
+                    <input name="category_id" class="d-none" type="text" value="@yield('search_category_id')">
+                    <div class="d-flex">
+                        <input class="form-control" type="search" name="name" placeholder="Buscar productos electrónicos" aria-label="Search" value="@yield('search')">
                         <button class="btn btn-success" type="submit"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
+                    </div>
                     <div class="collapse navbar-collapse">
                         <ul class="navbar-nav ">
                             <li class="nav-item dropdown">
@@ -47,15 +49,20 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark "
                                     aria-labelledby="navbarDarkDropdownMenuLink">
-                                    @foreach ($categories as  $category)
-                                    <li><a class="dropdown-item" href=""><i class="{{$icons[$category->id]}} p-0" style="width: 12px"></i> {{$category->name}}</a></li>
+                                    @foreach ($categories as $category)
+                                        <li><a
+                                                class="dropdown-item category-link"
+                                                href="{{route('product.index')}}?category_id={{$category->id}}"
+                                                data-id="{{$category->id}}"
+                                            ><i
+                                                    class="{{ $icons[$category->id] }} p-0" style="width: 12px"></i>
+                                                {{ $category->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
                         </ul>
                     </div>
-                </div>
-
+                </form>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -95,7 +102,11 @@
                                     <a class="dropdown-item" href="{{ route('user.profile') }}">
                                         <i class="fa-solid fa-user" style="width: 16px"></i> {{ __('Profile') }}
                                     </a>
+
                                     @if (Auth::user()->profile instanceof Offeror)
+                                        <a class="dropdown-item" href="{{ route('product.create') }}">
+                                            <i class="fa-solid fa-upload"></i> Añadir producto
+                                        </a>
                                         <a class="dropdown-item" href="{{ route('user.offeror.myProducts') }}">
                                             <i class="fa-solid fa-boxes-stacked"></i> Mis productos
                                         </a>
@@ -118,7 +129,8 @@
             </div>
         </nav>
         {{-- Sidebar Admin --}}
-        @if (Auth::user() && Auth::user()->profile instanceof Admin)
+        @guest
+        @elseif (Auth::user()->profile instanceof Admin)
             <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="admin-sidebar"
                 aria-labelledby="admin-sidebarLabel">
                 <div class="offcanvas-header">
@@ -128,31 +140,39 @@
                         aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body px-4">
-
-                    <a href="{{route('user.admin.userIndex')}}" class="btn link-admin-sidebar border rounded"><i class="fa-solid fa-users"></i>
+                    <a href="{{ route('user.admin.userIndex') }}" class="btn link-admin-sidebar border rounded"><i
+                            class="fa-solid fa-users"></i>
                         Usuarios</a>
-                    <a href="{{route('user.admin.reportIndex')}}" class="btn link-admin-sidebar border rounded"><i class="fa-solid fa-flag"
-                            style="width: 20px"></i> Reportes</a>
+                    <a href="{{ route('user.admin.reportIndex') }}" class="btn link-admin-sidebar border rounded"><i
+                            class="fa-solid fa-flag" style="width: 20px"></i> Reportes</a>
                 </div>
             </div>
-        @endif
-    {{-- Main --}}
-        <main class="py-4">
+        @endguest
+
+        {{-- Main --}}
+        <main class="pt-4 ">
             @yield('content')
         </main>
 
 
         {{-- Button show admin sidebar --}}
-        @if (Auth::user() && Auth::user()->profile instanceof Admin)
-        <button id="show-sidebar" class="btn btn-dark m-md-4" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#admin-sidebar" aria-controls="admin-sidebar">
-            <i class="fa-solid fa-shield-halved"></i>
-        </button>
-        @endif
 
+        @guest
+        @elseif (Auth::user()->profile instanceof Admin)
+            <button id="show-sidebar" class="btn btn-dark m-md-4" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#admin-sidebar" aria-controls="admin-sidebar">
+                <i class="fa-solid fa-shield-halved"></i>
+            </button>
+        @endguest
+
+
+    </div>
+    <div id="content-loader-main">
+        <span class="loader-main"></span>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js"></script>
+
     @stack('scripts')
 </body>
 

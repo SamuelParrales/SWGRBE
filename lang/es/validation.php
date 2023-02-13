@@ -22,6 +22,8 @@ return [
         'string'  => ':Attribute tiene que tener entre :min - :max caracteres.',
     ],
     'boolean'              => 'El campo :attribute debe tener un valor verdadero o falso.',
+    'category'             => 'categoría',
+    'cell phone number'    => 'celular',
     'confirmed'            => 'La confirmación de :attribute no coincide.',
     'current_password'     => 'La contraseña es incorrecta.',
     'date'                 => ':Attribute no es una fecha válida.',
@@ -213,4 +215,7 @@ return [
         'username'                 => 'usuario',
         'year'                     => 'año',
     ],
+
+    'verify_password' =>'La contraseña es incorrecta.',
+    'check_format_password' =>'Debe tener entre 8 y 16 caracteres, al menos un dígito, una minúscula y una mayúscula.',
 ];

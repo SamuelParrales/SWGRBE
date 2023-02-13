@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\defaultdata\DefaultDataSeeder;
+use Database\Seeders\testdata\TestDataSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             DefaultDataSeeder::class,
+            TestDataSeeder::class,
         ]);
     }
 }

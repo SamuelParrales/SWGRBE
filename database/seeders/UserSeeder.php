@@ -36,20 +36,7 @@ class UserSeeder extends Seeder
         $admin->user_id = $user->id;
         $admin->save();
 
-        $user = new User();
 
-        $user->name = "Offeror";
-        $user->last_name = "Prueba";
-        $user->username = "OfferorPrueba";
-        $user->email ="offeror@email.com";
-        $user->password = Hash::make("123456");
-        $user->email_verified_at = date("Y-m-d H:i:s");
-        $user->profile_type = Offeror::class;
-        $user->save();
-
-        $offeror = new Offeror();
-        $offeror->user_id = $user->id;
-        $offeror->save();
 
 
 

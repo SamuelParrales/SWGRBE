@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@php
-    $user = Auth::user();
-@endphp
+
 @section('content')
     <div class="container pb-0">
         <!-- title -->
@@ -10,7 +8,7 @@
             <div class="col-12 col-sm-11 col-md-10 col-lg-9">
                 <header class="row mb-3 justify-content-between align-items-end">
                     <div class="col-auto">
-                        <h1 class="fs-2 fw-bold mb-0">{{ __('Profile') }}</h1>
+                        <h1 class="ms-3 fs-2 fw-bold mb-0"><i class="fa-solid fa-user"></i> {{ __('Profile') }}</h1>
                     </div>
                 </header>
                 <div class="card mb-4">
@@ -53,21 +51,30 @@
                         <hr>
                         <div class="row">
                             <div class="col-sm-3">
-                                <p class="mb-0"><strong>{{ __('Role') }}</strong></p>
+                                <p class="mb-0"><strong>{{ __('Role') }} </strong></p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0">{{ $user->role->name }}</p>
+                                <p class="text-muted mb-0">{{ __(substr($user->profile_type, 11)) }}</p>
                             </div>
                         </div>
                         <hr>
                     </div>
                 </div>
-                <a id="btn-show-modal-change-password" class="btn btn-main col-auto me-1">
+                <a id="btn-show-modal-change-password" class="btn btn-main col-auto me-1"
+                    href="{{ route('passwordRestv1.update') }}">
                     <i class="fa-solid fa-lock"></i> Cambiar contraseña</a>
-                <button class="btn btn-main col-auto me-1">
-                    <i class="fa-solid fa-pen"></i> Editar perfil</button>
-                <a class="btn btn-danger"><i class="fa-solid fa-user-xmark"></i> Eliminar perfil</a>
+                <a href="{{ route('user.profile.edit') }}" class="btn btn-main col-auto me-1">
+                    <i class="fa-solid fa-user-pen"></i> Editar perfil</a>
+                <form id="form-delete-user" class="d-inline" action="{{route('profileRestv1.destroy')}}">
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-user-xmark"></i> Eliminar perfil</button>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @vite(['resources/js/user/profile/show.js'])
+@endpush

@@ -1,9 +1,19 @@
+
 <article class="card card-product col-auto mb-3 ">
-    <img src="..." class="border card-img-top mx-auto mb-3" alt="...">
+
+        <a class="card-container-img  mb-2 border-bottom" href="{{route('product.show',$product->id)}}">
+            <img class="crop" src="{{$product->images[0]->url}}" alt="...">
+        </a>
+
     <div class="card-body pt-0">
-        <h5 class="card-title">Nombre producto</h5>
-        {{-- <p class="card-text">Descripcion</p> --}}
-        <a href="#" class=" btn btn-sm btn-main  py-0 fs-5"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="" class="btn">0987654321</a>
+        <div class="overflow-hidden" style="height: 50px ">
+            <h5 class="card-title fs-5">{{substr($product->name,0,17) }}
+            @if (strlen($product->name)>17)
+                ...
+            @endif</h5>
+            {{-- overflow-hidde --}}
+        </div>
+
+        @include('product.components.btnsContant',compact('product'))
     </div>
 </article>
