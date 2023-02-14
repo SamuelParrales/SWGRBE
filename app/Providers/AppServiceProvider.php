@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,8 +40,12 @@ class AppServiceProvider extends ServiceProvider
             9 => 'fa-solid fa-building-shield',
             10 => 'fa-solid fa-indent ',
         ];
-        $categories = Category::all();
-        View::share(compact('categories','icons'));
+        if(Schema::hasTable('categories'))
+        {
+            $categories = Category::all();
+            View::share(compact('categories','icons'));
+        }
+
         //
     }
 }
