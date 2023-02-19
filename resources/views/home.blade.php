@@ -14,13 +14,14 @@
             <!-- The slideshow/carousel -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://cdn.pixabay.com/photo/2015/06/24/15/45/hands-820272_960_720.jpg" alt="Los Angeles"
+                    <img src="https://res.cloudinary.com/ddrfdszk5/image/upload/v1676842239/carousel/carousel_1_jzpbb4.png" alt="Recicla productos electrónicos desde cualquier lugar y dispositivo."
                         class="d-block w-100">
                 </div>
-                <div class="carousel-item">
-                    <img src="https://cdn.pixabay.com/photo/2015/05/31/10/55/man-791049_960_720.jpg" alt="Chicago"
+                <div class="carousel-item ">
+                    <img src="https://res.cloudinary.com/ddrfdszk5/image/upload/v1676842081/carousel/carousel_2_woxoju.png" alt="El reciclaje de productos electrónicos es necesario para fomentar el consumo responsable."
                         class="d-block w-100">
                 </div>
+
             </div>
 
             <!-- Left and right controls/icons -->
