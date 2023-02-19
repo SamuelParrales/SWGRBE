@@ -5,9 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
+                    <h1 class="fs-3 mb-3 "><i class="fa-solid fa-lock"></i> {{ __('Reset Password') }}</h1>
+
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
@@ -51,7 +52,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary b">
+                                <button type="submit" class="btn btn-main">
                                     {{ __('Reset Password') }}
                                 </button>
                             </div>

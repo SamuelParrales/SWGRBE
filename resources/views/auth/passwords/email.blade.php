@@ -8,7 +8,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <div class="fs-3 mb-3 "><i class="fa-solid fa-lock"></i> {{ __('Reset Password') }}</div>
+                    <h1 class="fs-3 mb-3 "><i class="fa-solid fa-lock"></i> {{ __('Reset Password') }}</h1>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
