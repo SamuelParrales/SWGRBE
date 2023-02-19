@@ -21,13 +21,21 @@ class ProfileRestController extends Controller
 
     public function update(UpdateProfileRequest $request)
     {
-        $user = User::findOrFail($request->id);
 
+
+        $user = User::findOrFail($request->id);
+        $email =strtolower($request->email);
+        $oldEmail = $user->email;
         $user->name = $request->name;
         $user->last_name = $request->last_name;
         $user->username = $request->username;
-        $user->email = $request->email;
+        $user->email = $email;
+
+        if($email!=$oldEmail) $user->email_verified_at = null;
         $user->save();
+
+        if($email!=$oldEmail) $user->sendEmailVerificationNotification();
+
     }
 
     public function destroy(Request $request)
