@@ -40,7 +40,7 @@
                 <h2>Lo más reciente: </h2>
             </div>
             <div class="w-100"></div>
-            <section class="row @if($count<3) col-md-7 col-lg-6 col-xl-5 @elseif ($count<4) col-md-9 col-lg-8 col-xl-7  @endif  g-0 justify-content-between ">
+            <section class="row @if($count<3) col-md-7 col-lg-6 col-xl-5 @elseif ($count<4) col-md-9 col-lg-8 col-xl-7  @endif  g-0 justify-content-center justify-content-sm-between ">
                 @foreach ($products as $product)
                     @include('product.components.card',compact('product'))
                 @endforeach

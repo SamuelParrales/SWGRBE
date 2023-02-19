@@ -14,6 +14,11 @@ class PasswordRestController extends Controller
 {
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+
+    }
     public function update(UpdatePasswordRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);

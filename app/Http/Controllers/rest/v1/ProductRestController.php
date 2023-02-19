@@ -14,8 +14,10 @@ use Illuminate\Http\Request;
 
 class ProductRestController extends Controller
 {
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request)  //Only Offeror
     {
+        $this->middleware(['auth', 'verified', 'banned', 'profile:Offeror']);
+
         $product = new Product();
         $product->user_id = Auth::user()->id;
         $product->name = $request->name;
@@ -40,8 +42,10 @@ class ProductRestController extends Controller
         return $product;
     }
 
-    public function update($id, ProductRequest $request)
+    public function update($id, ProductRequest $request) //Only Offeror
     {
+        $this->middleware(['auth', 'verified', 'banned', 'profile:Offeror']);
+
         $user_id = Auth::user()->id;
         $product = Product::findOrFail($id);
 
@@ -81,8 +85,9 @@ class ProductRestController extends Controller
         return $product->save();
     }
 
-    public function recycle($id)
+    public function recycle($id)  //Only Offeror
     {
+        $this->middleware(['auth', 'verified', 'banned', 'profile:Offeror']);
         $user_id = Auth::user()->id;
         $product = Product::findOrFail($id);
 
@@ -102,20 +107,29 @@ class ProductRestController extends Controller
         $product->recycled = true;
         return $product->save();
     }
-    public function destroy($id)
+    public function destroy($id) //All
     {
-        $user_id = Auth::user()->id;
+        $user = Auth::user();
         $product = Product::findOrFail($id);
 
-        if ($product->user_id != $user_id) {
-            throw new HttpResponseException(
-                response()->json(['error' => 'Forbidden.'], JsonResponse::HTTP_FORBIDDEN)  //http 403
-            );
+        if ($user->profile_type == "App\Models\Offeror") {
+            $this->middleware(['auth', 'verified', 'banned', 'profile:Offeror']);
+            $user_id = $user->id;
+            if ($product->user_id != $user_id) {
+                throw new HttpResponseException(
+                    response()->json(['error' => 'Forbidden.'], JsonResponse::HTTP_FORBIDDEN)  //http 403
+                );
+            }
+            if ($product->recycled) {
+                throw new HttpResponseException(
+                    response()->json(['error' => 'Locked.'], JsonResponse::HTTP_LOCKED)  //http 423
+                );
+            }
         }
-        if ($product->recycled) {
-            throw new HttpResponseException(
-                response()->json(['error' => 'Locked.'], JsonResponse::HTTP_LOCKED)  //http 423
-            );
+        else
+        {
+            $this->middleware(['auth', 'verified', 'profile:Moderator,Admin']);
+            $product->user->sendEmailRemovedProduct($product);
         }
 
         foreach ($product->images as $image) {

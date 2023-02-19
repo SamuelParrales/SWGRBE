@@ -18,8 +18,21 @@ class ProductController extends Controller
         $category_id = $request->input('category_id',null);
         $searchParams = compact('order_by','name','category_id');
 
+        $products = Product::query();
+        if(Auth::guest())
+        {
+            $products = Product::where('recycled',false);
+        }
+        else
+        {
+            $profile_type = substr(Auth::user()->profile_type, 11);
 
-        $products = Product::where('recycled',false);
+            if($profile_type=='Offeror')
+            {
+                $products = Product::where('recycled',false);
+            }
+        }
+
         //Filters
         if($name) $products = $products->where('name','like','%'.$name.'%');
 

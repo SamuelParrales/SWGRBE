@@ -51,9 +51,10 @@
                                 @for ($i = 0; $i < $products->count(); $i++)
                                     @php
                                         $product = $products[$i];
+                                        $index = $products->perPage()*($products->currentPage()-1)+$i+1;
                                     @endphp
                                     <tr>
-                                        <th class="text-center align-middle" scope="row">{{ $i + 1 }}</th>
+                                        <th class="text-center align-middle" scope="row">{{ $index }}</th>
                                         <td>
                                             <div class="container-img rounded">
                                                 <img class="crop " src="{{ $product->images[0]->url }}" alt="">

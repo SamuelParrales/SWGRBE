@@ -64,9 +64,13 @@ const deleteProfile = async (e) =>{
         },
         confirm: async () => {
 
-            await axios.post($form.action,{
-                _method: 'delete',
-            })
+            try {
+                await axios.post($form.action,{
+                    _method: 'delete',
+                })
+            } catch (error) {
+                return Promise.reject(error);
+            }
         },
         end: (msg)=>{
             if(msg=="success") location.reload();
@@ -83,4 +87,5 @@ ModalChangePassword({
     btnShow: $btnShowModalChangePassword,
     clickSave: saveChangePass,
 })
-$formDeleteUser.addEventListener('submit',deleteProfile)
+if($formDeleteUser)
+    $formDeleteUser.addEventListener('submit',deleteProfile)

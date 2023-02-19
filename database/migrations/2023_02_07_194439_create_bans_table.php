@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('bans', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->smallInteger('days')->nullable();
             $table->timestamp('created_at');
             $table->foreign('user_id')->references('user_id')->on('offerors')->onDelete('cascade');
         });

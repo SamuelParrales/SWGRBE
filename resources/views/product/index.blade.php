@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <div class="row align-items-start">
-            <aside class="col-4 col-sm-3 col-lg-2  pt-4">
+            <aside class="col-5 col-sm-3 col-lg-2 pe-1 pt-4">
                 <h2 class="fs-6 fw-bold">{{ __('Categories') }}</h2>
                 @foreach ($categories as $category)
                     <div class="mb-3">
@@ -25,7 +25,7 @@
 
 
             </aside>
-            <section class="col-8 col-sm-9 col-lg-10 row g-0 justify-content-center justify-content-md-start">
+            <section class="col-7 col-sm-9 col-lg-10 row g-0 justify-content-center justify-content-md-start">
                 <header class="row mb-3 justify-content-between align-items-end">
                     @php
                         $total = $products->total();

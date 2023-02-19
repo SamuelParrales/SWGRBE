@@ -2,7 +2,7 @@ const validFeedBack ="¡Se ve bien!"
 
 export const feedbackForm = (form, msg)=>{ //Validación
     const inputs = form.querySelectorAll('[name].feedback');
-    console.log(inputs)
+
     for (const input of inputs) {
         let name = input.name;
         const parent = input.parentElement;

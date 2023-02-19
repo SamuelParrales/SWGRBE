@@ -2,6 +2,7 @@
 
 namespace Database\Seeders\testdata;
 
+use App\Models\Moderator;
 use App\Models\Offeror;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,7 +30,7 @@ class UserSeeder extends Seeder
 
         $offeror = new Offeror();
         $offeror->user_id = $user->id;
-        // $offeror->banned = false;
+
         $offeror->save();
 
 
@@ -45,7 +46,24 @@ class UserSeeder extends Seeder
 
         $offeror = new Offeror();
         $offeror->user_id = $user->id;
-        // $offeror->banned = false;
+
+        $offeror->save();
+
+
+        // Moderators
+        $user = new User();
+        $user->name = "Moderator01";
+        $user->last_name = "Prueba";
+        $user->username = "Moderator01Prueb";
+        $user->email ="moderator@email.com";
+        $user->password = Hash::make("123456");
+        $user->email_verified_at = date("Y-m-d H:i:s");
+        $user->profile_type = Moderator::class;
+        $user->save();
+
+        $offeror = new Moderator();
+        $offeror->user_id = $user->id;
+
         $offeror->save();
     }
 }

@@ -13,13 +13,29 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 // *******************************************************************MVC
-// **********************************************************User
-Route::middleware(['auth', 'verified'])->group(function(){
+// **********************************************************all User
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [App\Http\Controllers\mvc\user\ProfileController::class, 'profile'])->name('user.profile');
-    Route::get('/profile/edit',[App\Http\Controllers\mvc\user\ProfileController::class, 'edit'])->name('user.profile.edit');
+    Route::get('/profile/edit', [App\Http\Controllers\mvc\user\ProfileController::class, 'edit'])->name('user.profile.edit');
 });
-// ******************************** Offeror
-Route::middleware(['auth', 'verified','profile:Offeror'])->group(function () {
+// ******************************* Moderator and admin
+Route::middleware(['auth', 'verified', 'profile:Moderator,Admin'])->group(function () {
+    Route::get('/admin/users', [App\Http\Controllers\mvc\user\admin\AdminController::class, 'userIndex'])->name('user.admin.userIndex');
+    Route::get('/admin/reports', [App\Http\Controllers\mvc\user\admin\AdminController::class, 'reportIndex'])->name('user.admin.reportIndex');
+});
+// ****************************** Only Admin
+Route::middleware(['auth', 'verified', 'profile:Admin'])->group(function () {
+    Route::get('/admin/moderatos/create', [App\Http\Controllers\mvc\user\admin\AdminController::class, 'moderatorCreate'])->name('user.admin.moderatorCreate');
+});
+
+
+// ******************************** only Offeror
+Route::get('/email/ban', function () {
+    return Auth::user()->profile->banned_at ? view('user.offeror.ban') : abort(404);
+})->middleware(['auth', 'verified', 'profile:Offeror'])->name('email.ban');
+
+Route::middleware(['auth', 'verified', 'banned', 'profile:Offeror'])->group(function () {
+
     Route::get('/products/{id}/edit', [App\Http\Controllers\mvc\ProductController::class, 'edit'])->name('product.edit');
     Route::get('/products/create', [App\Http\Controllers\mvc\ProductController::class, 'create'])->name('product.create');
     Route::get('/my-products', [App\Http\Controllers\mvc\user\offeror\MyProductsController::class, 'index'])->name('user.offeror.myProducts');
@@ -34,33 +50,29 @@ Route::get('/products/{id}', [App\Http\Controllers\mvc\ProductController::class,
 // *******************************************Only invite
 Auth::routes(['verify' => true]);
 
-
-
-
-
-// Admin
-
-Route::get('/admin/products', [App\Http\Controllers\mvc\user\admin\AdminController::class, 'productIndex'])->name('user.admin.productIndex');
-Route::get('/admin/users', [App\Http\Controllers\mvc\user\admin\AdminController::class, 'userIndex'])->name('user.admin.userIndex');
-Route::get('/admin/reports', [App\Http\Controllers\mvc\user\admin\AdminController::class, 'reportIndex'])->name('user.admin.reportIndex');
-
-
-
-
 // *****************************************************************Api  rest
-//*****************************************************v1
+//**********************************************************v1
+// ***********************************Reports
+Route::post('/api/v1/reports', [App\Http\Controllers\rest\v1\ReportRestController::class, 'store'])->name('reportRestv1.store');
+Route::delete('/api/v1/reports/{id}', [App\Http\Controllers\rest\v1\ReportRestController::class, 'destroy'])->name('reportRestv1.destroy');
+// *********************************** Products
 Route::post('/api/v1/products', [App\Http\Controllers\rest\v1\ProductRestController::class, 'store'])->name('productRestv1.store');
 Route::put('/api/v1/products/{id}/recycle', [App\Http\Controllers\rest\v1\ProductRestController::class, 'recycle'])->name('productRestv1.recycle');
 Route::put('/api/v1/products/{id}', [App\Http\Controllers\rest\v1\ProductRestController::class, 'update'])->name('productRestv1.update');
 Route::delete('/api/v1/products/{id}', [App\Http\Controllers\rest\v1\ProductRestController::class, 'destroy'])->name('productRestv1.destroy');
 
 
-// User
-Route::middleware(['auth'])->group(function () {
+// **************************************Profile
+Route::put('/api/v1/profile', [App\Http\Controllers\rest\v1\ProfileRestController::class, 'update'])->name('profileRestv1.update');
+Route::delete('/api/v1/profile', [App\Http\Controllers\rest\v1\ProfileRestController::class, 'destroy'])->name('profileRestv1.destroy');
 
-    Route::put('/api/v1/profile', [App\Http\Controllers\rest\v1\ProfileRestController::class, 'update'])->name('profileRestv1.update');
-    Route::delete('/api/v1/profile', [App\Http\Controllers\rest\v1\ProfileRestController::class, 'destroy'])->name('profileRestv1.destroy');
+// **************************************Password
+Route::put('/api/v1/password', [App\Http\Controllers\rest\v1\PasswordRestController::class, 'update'])->name('passwordRestv1.update');
 
-    Route::put('/api/v1/password',[App\Http\Controllers\rest\v1\PasswordRestController::class,'update'])->name('passwordRestv1.update');
+// **************************************Offerors
+Route::put('/api/v1/offerors/{id}/ban', [App\Http\Controllers\rest\v1\OfferorRestController::class, 'ban'])->name('offerorRestv1.ban');
+Route::put('/api/v1/offerors/{id}/unban', [App\Http\Controllers\rest\v1\OfferorRestController::class, 'unban'])->name('offerorRestv1.unban');
 
-});
+// **************************************Moderators
+Route::delete('/api/v1/moderators/{id}', [App\Http\Controllers\rest\v1\ModeratorRestController::class, 'destroy'])->name('moderatorRestv1.destroy');
+Route::post('/api/v1/moderators/', [App\Http\Controllers\rest\v1\ModeratorRestController::class, 'store'])->name('moderatorRestv1.store');

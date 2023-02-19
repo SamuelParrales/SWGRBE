@@ -12,6 +12,13 @@ use Illuminate\Http\JsonResponse;
 
 class ProfileRestController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+
+    }
+
     public function update(UpdateProfileRequest $request)
     {
         $user = User::findOrFail($request->id);

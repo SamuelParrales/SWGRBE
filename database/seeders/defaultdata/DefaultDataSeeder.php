@@ -17,6 +17,7 @@ class DefaultDataSeeder extends Seeder
         $this->call(
             [
                 CategorySeeder::class,
+                ReportReasonSeeder::class,
             ]
         );
     }

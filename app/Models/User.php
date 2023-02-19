@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-
+use App\Notifications\BannedUser;
+use App\Notifications\RemovedProduct;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -57,6 +58,10 @@ class User extends Authenticatable implements MustVerifyEmail
         {
             return $this->hasOne(Offeror::class);
         }
+        else if($this->profile_type =='App\Models\Moderator')
+        {
+            return $this->hasOne(Moderator::class);
+        }
 
     }
 
@@ -88,4 +93,18 @@ class User extends Authenticatable implements MustVerifyEmail
 
          return $result;
      }
+
+         //  Notify
+    public function sendEmailBannedUser($days)
+    {
+        $this->notify(new BannedUser($days));
+    }
+
+    public function sendEmailRemovedProduct($product)
+    {
+        $this->notify(new RemovedProduct($product));
+    }
+
+
+
 }

@@ -65,10 +65,12 @@
                     <i class="fa-solid fa-lock"></i> Cambiar contraseña</a>
                 <a href="{{ route('user.profile.edit') }}" class="btn btn-main col-auto me-1">
                     <i class="fa-solid fa-user-pen"></i> Editar perfil</a>
+                @if (substr($user->profile_type, 11)=="Offeror")
                 <form id="form-delete-user" class="d-inline" action="{{route('profileRestv1.destroy')}}">
                     @method('delete')
                     <button type="submit" class="btn btn-danger"><i class="fa-solid fa-user-xmark"></i> Eliminar perfil</button>
                 </form>
+                @endif
             </div>
         </div>
     </div>

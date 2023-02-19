@@ -16,6 +16,12 @@ export default defineConfig({
                 'resources/js/user/offeror/myProducts.js',
                 'resources/js/user/profile/edit.js',
                 'resources/js/user/profile/show.js',
+
+                // Admin
+
+                'resources/js/user/admin/report/index.js',
+                'resources/js/user/admin/user/index.js',
+                'resources/js/user/admin/user/moderatorCreate.js',
             ],
             refresh: true,
         }),
