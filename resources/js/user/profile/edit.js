@@ -1,7 +1,8 @@
 
 import axios from "axios";
+import { alertConfirmPassword } from "../../helpers/alertConfirmPassword";
 
-import { alertConfirm } from "../../helpers/alertConfirm";
+
 import { feedbackForm } from "../../helpers/feedbackForm";
 
 
@@ -13,7 +14,7 @@ const axiosUpdateProfile = async ($form) => {
     try {
         const formData = new FormData($form);
 
-        await axios.post($form.action, formData, {
+        return await axios.post($form.action, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -34,14 +35,36 @@ const axiosUpdateProfile = async ($form) => {
 
 const handlerSubmit = async (e) => {
     e.preventDefault();
-
-    alertConfirm({
+    const errorData ={
+        icon: 'error',
+        title: 'Oops...',
+        text: '¡Algo salió mal!',
+    }
+    alertConfirmPassword({
         data:{
             title: '¿Está seguro de editar su perfil?',
-            text: 'Podrá revertir o editar esta acción más tarde.',
+            text: 'Para realizar esta acción ingrese su contraseña:',
             icon:'question',
         },
-        confirm: async ()=>await axiosUpdateProfile($formUser),
+        errorData,
+        confirm: async (password)=>{
+
+            $formUser.password.value = password;
+            try{
+                await axiosUpdateProfile($formUser);
+            }
+            catch(result)
+            {
+
+                if(result.response.status==422)
+                {
+                    const {response:{data:{errors}}} = result
+                    errorData.text = errors['password'][0];
+                }
+
+                return Promise.reject(errors);
+            }
+        },
         end: (msg)=>{
             if(msg=="success") location.reload();
         },

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\rest\v1;
 
+use App\Rules\VerifyPassword;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -32,6 +33,7 @@ class UpdateProfileRequest extends FormRequest
             'last_name' =>'required|string|min:3|max:50',
             'username' =>['required','string','min:3','max:16',Rule::unique('users', 'username')->ignore($this->id)],
             'email' => ['required','email','max:255',Rule::unique('users', 'email')->ignore($this->id)],
+            'password' =>['required','string','max:16',new VerifyPassword()]
         ];
     }
 }

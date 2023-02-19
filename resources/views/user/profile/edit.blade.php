@@ -6,7 +6,7 @@
             <form id="form-user" class="col-sm-10 col-md-8 col-lg-6 bg-white p-3 border rounded"
                 action="{{route('profileRestv1.update')}}"
                 enctype="multipart/form-data">
-
+                <input class="d-none" name="password" type="password">
                 <header class="mb-3">
                     <h1 class="fs-2  mb-0"><i class="fa-solid fa-user-pen"></i>
                         Editar perfil
