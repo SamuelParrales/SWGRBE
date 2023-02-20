@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 */
 // *******************************************************************MVC
 // **********************************************************all User
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [App\Http\Controllers\mvc\user\ProfileController::class, 'profile'])->name('user.profile');
     Route::get('/profile/edit', [App\Http\Controllers\mvc\user\ProfileController::class, 'edit'])->name('user.profile.edit');
 });

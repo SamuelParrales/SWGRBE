@@ -27,9 +27,7 @@ class CheckProfileType
                 return $next($request);
             }
         }
+       abort(403);
 
-
-        return redirect('home');
-        // return redirect(route('login'));
     }
 }

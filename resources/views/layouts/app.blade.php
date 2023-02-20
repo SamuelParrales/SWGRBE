@@ -16,6 +16,7 @@
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
     <title>@yield('title')</title>
     <meta name="description" content="Reciclaje de basura electrónica">
+    <meta name="keywords" content="reciclaje, basura, electrónica @yield('keywords')">
     {{-- Icon --}}
     <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
     <!-- Fonts -->

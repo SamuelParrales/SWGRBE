@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title','Productos' .($searchParams['name']?' - '.$searchParams['name']:''))
+@section('keywords','productos')
 
 @section('search', $searchParams['name'])
 @section('search_category_id', $searchParams['category_id'])
