@@ -24,9 +24,9 @@ class UserSeeder extends Seeder
         $user = new User();
 
         $user->name = "Admin";
-        $user->last_name = "Prueba";
+        $user->last_name = "M";
         $user->username = "AdminPrueba";
-        $user->email ="admin@email.com";
+        $user->email ="soporte.swgrbe@gmail.com";
         $user->password = Hash::make("123456");
         $user->email_verified_at = date("Y-m-d H:i:s");
         $user->profile_type = Admin::class;

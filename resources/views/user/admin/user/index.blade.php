@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Administración - usuarios')
+@section('title', 'Administración - usuarios')
 @section('content')
     <div class="container p-2">
         <div class="row g-0 justify-content-center">
@@ -118,13 +118,24 @@
                                                         style="width: 32.5px"><i class="fa-solid fa-user-slash"></i></a>
                                                 @endif
                                             @else
-                                                <form action="{{ route('moderatorRestv1.destroy', $user->id) }}"
-                                                    method="post" class="col-auto form-destroy-moderator">
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-danger btn-sm py-0 px-1 fs-5"
-                                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar"
-                                                        style="width: 32.5px"><i class="fa-solid fa-trash"></i></button>
-                                                </form>
+                                                @if (substr(Auth::user()->profile_type, 11) == 'Moderator')
+
+                                                <span data-bs-toggle="tooltip" title="No posee permisos para realizar esta acción." data-bs-placement="top">
+                                                    <button disabled type="button" class="btn btn-danger btn-sm py-0 px-1 fs-5"
+                                                     style="width: 32.5px"><i
+                                                        class="fa-solid fa-trash"></i></button>
+                                                </span>
+
+                                                @else
+                                                    <form action="{{ route('moderatorRestv1.destroy', $user->id) }}"
+                                                        method="post" class="col-auto form-destroy-moderator">
+                                                        @method('delete')
+                                                        <button type="submit" class="btn btn-danger btn-sm py-0 px-1 fs-5"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Eliminar" style="width: 32.5px"><i
+                                                                class="fa-solid fa-trash"></i></button>
+                                                    </form>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>
@@ -133,7 +144,7 @@
                             </tbody>
                         </table>
 
-                        {{$users->links()}}
+                        {{ $users->links() }}
                     </div>
                 @endif
 
