@@ -3,7 +3,7 @@
 @section('title','Crear producto')
 @push('styles')
     <link rel="stylesheet" type="text/css"
-        href="https://unpkg.com/file-upload-with-preview/dist/file-upload-with-preview.min.css" />
+        href="https://unpkg.com/file-upload-with-preview/dist/style.css" />
 @endpush
 @section('content')
     <div class="container">
