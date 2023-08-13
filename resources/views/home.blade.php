@@ -9,11 +9,16 @@
             <div class="carousel-indicators mb-md-4">
                 <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="0" class="active"></button>
                 <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carousel-home" data-bs-slide-to="2"></button>
             </div>
 
             <!-- The slideshow/carousel -->
             <div class="carousel-inner">
                 <div class="carousel-item active">
+                    <img src="{{URL::to('/')}}/carousel/Carousel.png"
+                        class="d-block w-100">
+                </div>
+                <div class="carousel-item">
                     <img src="https://res.cloudinary.com/ddrfdszk5/image/upload/v1676842239/carousel/carousel_1_jzpbb4.png" alt="Recicla productos electrónicos desde cualquier lugar y dispositivo."
                         class="d-block w-100">
                 </div>
