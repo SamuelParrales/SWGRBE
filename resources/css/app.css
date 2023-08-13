@@ -6,7 +6,9 @@
     --secondary-background: #fff;
 }
 
-
+.bg-main{
+    background-color: var(--main-color);
+}
 .navbar-main {
     background-color: var(--main-color);
 

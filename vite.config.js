@@ -17,6 +17,11 @@ export default defineConfig({
                 'resources/js/user/profile/edit.js',
                 'resources/js/user/profile/show.js',
 
+                // Public
+
+                'resources/js/publication/show.js',
+                'resources/js/publication/index.js',
+
                 // Admin
 
                 'resources/js/user/admin/report/index.js',

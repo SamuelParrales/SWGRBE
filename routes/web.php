@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\Auth;
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [App\Http\Controllers\mvc\user\ProfileController::class, 'profile'])->name('user.profile');
     Route::get('/profile/edit', [App\Http\Controllers\mvc\user\ProfileController::class, 'edit'])->name('user.profile.edit');
+
+    //publication
+
+    Route::post('/publications',[App\Http\Controllers\mvc\PublicationController::class,'store'])->name('publication.store');
+    Route::post('/comments',[App\Http\Controllers\mvc\CommentController::class,'store'])->name('comment.store');
+    Route::put('/comments/{id}',[App\Http\Controllers\mvc\CommentController::class,'update'])->name('comment.update');
+
 });
 // ******************************* Moderator and admin
 Route::middleware(['auth', 'verified', 'profile:Moderator,Admin'])->group(function () {
@@ -44,8 +51,11 @@ Route::middleware(['auth', 'verified', 'banned', 'profile:Offeror'])->group(func
 // ****************************************** Public
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/publications',[App\Http\Controllers\mvc\PublicationController::class,'index'])->name('publication.index');
+Route::get('/publications/{id}',[App\Http\Controllers\mvc\PublicationController::class,'show'])->name('publication.show');
 Route::get('/products', [App\Http\Controllers\mvc\ProductController::class, 'index'])->name('product.index');
 Route::get('/products/{id}', [App\Http\Controllers\mvc\ProductController::class, 'show'])->name('product.show');
+
 
 // *******************************************Only invite
 Auth::routes(['verify' => true]);
@@ -76,3 +86,12 @@ Route::put('/api/v1/offerors/{id}/unban', [App\Http\Controllers\rest\v1\OfferorR
 // **************************************Moderators
 Route::delete('/api/v1/moderators/{id}', [App\Http\Controllers\rest\v1\ModeratorRestController::class, 'destroy'])->name('moderatorRestv1.destroy');
 Route::post('/api/v1/moderators/', [App\Http\Controllers\rest\v1\ModeratorRestController::class, 'store'])->name('moderatorRestv1.store');
+
+
+// Publications
+Route::put('/api/v1/publications/{id}',[App\Http\Controllers\rest\v1\PublicationRestController::class,'update'])->name('publicationRestv1.update');
+Route::delete('/api/v1/publications/{id}',[App\Http\Controllers\rest\v1\PublicationRestController::class,'destroy'])->name('publicationRestv1.destroy');
+
+
+// Comments
+Route::delete('/api/v1/comments/{id}',[App\Http\Controllers\rest\v1\CommentRestController::class,'destroy'])->name('commentRestv1.destroy');
