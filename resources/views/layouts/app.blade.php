@@ -23,7 +23,13 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <!--Google ad  -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2938595812984607"
+     crossorigin="anonymous"></script>
+
     <!-- Scripts -->
+
+
     @vite(['resources/sass/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
     @vite(['resources/css/components/helpers/LoaderMain.css'])
     <!--Bootstrap  -->
